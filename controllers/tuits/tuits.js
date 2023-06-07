@@ -1,6 +1,6 @@
 export default [
     {
-        "_id": "123", "topic": "Space1111111", "username": "SpaceX", "handle": "@spacex", "time": "2h", "image": "spacex-logo.jpg",
+        "_id": "123", "topic": "Space", "username": "SpaceX", "handle": "@spacex", "time": "2h", "image": "spacex-logo.jpg",
         "title": "SpaceX's Mission", "liked": true, "likes": 2345, "replies": 123, "retuits": 432, "tuit": "You want to wake up in the morning and think the future is going to be great - and that’s what being a spacefaring civilization is all about. It’s about believing in the future and thinking that the future will be better than the past. And I can’t think of anything more exciting than going out there and being among the stars"
     },
     {

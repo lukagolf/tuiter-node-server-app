@@ -18,28 +18,6 @@ const createTuit = async (req, res) => {
     res.json(newTuit);
 }
 
-/* const AddNewTuit = async (req,res) =>
-{
-    console.log("Inside controller")
-    let NewTuit = req.body;
-
-    NewTuit.likes = 0;
-    NewTuit.liked = false;
-
-    NewTuit.topic = "Traffic";
-    NewTuit.username = "The Boring Company";
-    NewTuit.handle = "@boringcompany";
-    NewTuit.time = "2h";
-    NewTuit.image = "../../Images/Tesla.png";
-    NewTuit.title = "The Boring Company fixing traffic";
-    NewTuit.replies = 0;
-    NewTuit.dislikes = 0;
-    NewTuit.retuits = 0;
-    console.log(NewTuit);
-    const InsertedTuit = await TuitsDAO.createTuit(NewTuit);
-    res.send(InsertedTuit );
-} */
-
 const findTuits = (req, res) => res.json(tuits);
 
 const updateTuit = (req, res) => {
