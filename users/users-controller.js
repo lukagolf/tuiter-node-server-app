@@ -12,11 +12,18 @@ const UserController = (app) => {
 const updateUser = (req, res) => {
     const userId = req.params['uid'];
     const updates = req.body;
-    users = users.map((usr) =>
-        usr._id === userId ?
-            { ...usr, ...updates } :
-            usr
-    );
+    
+    const ndx = users.findIndex((u) => u._id === userId);
+    const newUser = { ...users[ndx], ...updates };
+    req.session['currentUser'] = newUser;
+    users[ndx] = newUser;
+
+    // users = users.map((usr) =>
+    //     usr._id === userId ?
+    //         { ...usr, ...updates } :
+    //         usr
+    // );
+    console.log(users);
     res.sendStatus(200);
 }
 
@@ -33,6 +40,7 @@ const createUser = (req, res) => {
     newUser._id = (new Date()).getTime() + '';
     users.push(newUser);
     res.json(newUser);
+    console.log(users);
 }
 
 const findUserById = (req, res) => {
