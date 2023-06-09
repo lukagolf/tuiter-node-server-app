@@ -1,4 +1,5 @@
 import people from './users.js'
+import * as usersDao from "./users-dao.js";
 
 let users = people
 const UserController = (app) => {
@@ -12,11 +13,10 @@ const UserController = (app) => {
 const updateUser = (req, res) => {
     const userId = req.params['uid'];
     const updates = req.body;
-    
-    const ndx = users.findIndex((u) => u._id === userId);
-    const newUser = { ...users[ndx], ...updates };
+
+    const newUser = usersDao.updateUser(userId, updates)
     req.session['currentUser'] = newUser;
-    users[ndx] = newUser;
+    // users[ndx] = newUser;
 
     // users = users.map((usr) =>
     //     usr._id === userId ?
@@ -36,8 +36,8 @@ const deleteUser = (req, res) => {
 
 
 const createUser = (req, res) => {
-    const newUser = req.body;
-    newUser._id = (new Date()).getTime() + '';
+    let newUser = req.body;
+    newUser ["_id"] = (new Date()).getTime() + '';
     users.push(newUser);
     res.json(newUser);
     console.log(users);
@@ -51,13 +51,15 @@ const findUserById = (req, res) => {
 }
 
 const findUsers = (req, res) => {
-    const type = req.query.type
-    if (type) {
-        const usersOfType = users
-            .filter(u => u.type === type)
-        res.json(usersOfType)
-        return
-    }
+    const users = usersDao.findAllUsers();
+
+    // const type = req.query.type
+    // if (type) {
+    //     const usersOfType = users
+    //         .filter(u => u.type === type)
+    //     res.json(usersOfType)
+    //     return
+    // }
     res.json(users)
 }
 
