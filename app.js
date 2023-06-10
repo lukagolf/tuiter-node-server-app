@@ -5,21 +5,20 @@ import TuitsController from "./controllers/tuits/tuits-controller.js";
 import cors from 'cors';
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
-import { MemoryStore } from 'express-session';
-
-// const MemoryStore = require('memorystore')(session)
 
 const app = express()
 app.use(
-  session({
-    secret: "any string",
-    resave: false,
-    saveUninitialized: true,
-    store: new MemoryStore(),
-  })
+    session({
+        secret: "any string",
+        resave: false,
+        saveUninitialized: true,
+    })
 );
 app.use(
-  cors()
+    cors({
+        credentials: true,
+        origin: "http://localhost:3000",
+    })
 );
 app.use(express.json());
 const port = process.env.PORT || 4000;
