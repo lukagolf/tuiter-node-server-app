@@ -10,11 +10,11 @@ const UserController = (app) => {
     app.put('/api/users/:uid', updateUser);
 }
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
     const userId = req.params['uid'];
     const updates = req.body;
 
-    const newUser = usersDao.updateUser(userId, updates)
+    const newUser = await usersDao.updateUser(userId, updates)
     req.session['currentUser'] = newUser;
     // users[ndx] = newUser;
 
@@ -28,14 +28,14 @@ const updateUser = (req, res) => {
 }
 
 
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
     const userId = req.params['uid'];
     users = users.filter(usr => usr._id !== userId);
     res.sendStatus(200);
 }
 
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
     let newUser = req.body;
     newUser ["_id"] = (new Date()).getTime() + '';
     users.push(newUser);
@@ -43,15 +43,15 @@ const createUser = (req, res) => {
     console.log(users);
 }
 
-const findUserById = (req, res) => {
+const findUserById = async (req, res) => {
     const userId = req.params.uid;
     const user = users
         .find(u => u._id === userId);
     res.json(user);
 }
 
-const findUsers = (req, res) => {
-    const users = usersDao.findAllUsers();
+const findUsers = async (req, res) => {
+    const users = await usersDao.findAllUsers();
 
     // const type = req.query.type
     // if (type) {
