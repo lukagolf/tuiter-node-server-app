@@ -8,17 +8,17 @@ import AuthController from "./users/auth-controller.js";
 
 const app = express()
 app.use(
-    session({
-        secret: "any string",
-        resave: false,
-        saveUninitialized: true,
-    })
+  session({
+    secret: "any string",
+    resave: false,
+    saveUninitialized: true,
+  })
 );
 app.use(
-    cors({
-        credentials: true,
-        origin: "http://localhost:3000",
-    })
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
 );
 app.use(express.json());
 const port = process.env.PORT || 4000;
