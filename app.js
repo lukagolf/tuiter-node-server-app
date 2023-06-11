@@ -7,6 +7,11 @@ import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 
 const app = express()
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    // other headers...
+    next();
+});
 app.use(
     session({
         secret: "any string",
