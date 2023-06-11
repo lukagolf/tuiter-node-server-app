@@ -14,20 +14,21 @@ app.use(
         saveUninitialized: true,
     })
 );
-app.use(
-    cors({
-        credentials: true,
-        origin: "http://localhost:3000",
-    })
-);
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://lj-tuiter-node-server-app.herokuapp.com");
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
+app.use((req, res, next) => {
+    const allowedOrigins = ["http://localhost:3000", "https://a5--stellular-malasada-11cc12.netlify.app"];
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+    }
+    
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
-    res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
+
 app.use(express.json());
 const port = process.env.PORT || 4000;
 TuitsController(app);
