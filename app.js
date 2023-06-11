@@ -6,12 +6,7 @@ import cors from 'cors';
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 
-const app = express()
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    // other headers...
-    next();
-});
+const app = express();
 app.use(
     session({
         secret: "any string",
@@ -22,7 +17,14 @@ app.use(
 app.use(
     cors({
         credentials: true,
-        origin: "http://localhost:3000",
+        origin: (origin, callback) => {
+            const allowedOrigins = ["http://localhost:3000", "https://a5--stellular-malasada-11cc12.netlify.app/"];
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
     })
 );
 app.use(express.json());
