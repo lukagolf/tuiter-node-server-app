@@ -21,7 +21,7 @@ const findTuits = async (req, res) => {
     res.json(tuits);
 }
 const updateTuit = async (req, res) => {
-    const tuitdId = req.params.tid;
+    const tuitdIdToUpdate = req.params.tid;
     const updates = req.body;
     const status = await tuitsDao.updateTuit(tuitdIdToUpdate, updates);
     res.json(status);
@@ -33,7 +33,6 @@ const deleteTuit = async (req, res) => {
     const status = await tuitsDao.deleteTuit(tuitdIdToDelete);
     res.json(status);
 }
-
 
 export default (app) => {
     app.post('/api/tuits', createTuit);
