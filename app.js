@@ -6,8 +6,13 @@ import cors from 'cors';
 import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
+import ConnectMongo from 'connect-mongo';
+import { config as dotenvConfig } from 'dotenv';
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/tuiter"
+dotenvConfig();
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING  || "mongodb://127.0.0.1:27017/tuiter"
+
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
@@ -16,16 +21,36 @@ app.use(
         secret: "any string",
         resave: false,
         saveUninitialized: true,
+        // store: new MongoStore({
+        //     url: 'mongodb://127.0.0.1:27017/tuiter',
+        //     ttl: 14 * 24 * 60 * 60,
+        //     autoRemove: 'native'
+        // })
     })
 );
-// app.use(
-//     session({
-//         secret: "any string",
-//         resave: false,
-//         saveUninitialized: false,
-//         store: new session.MemoryStore(),
-//     })
-// );
+
+// app.get('/', (req,res,next) => {
+//     req.session.user = {
+//         uuid: '12234-2345-2323423'
+//     }
+//     req.session.save(err => {
+//         if(err){
+//             console.log(err);
+//         } else {
+//             res.send(req.session.user)
+//         }
+//     });
+// })
+
+// app.get('/end', (req,res,next) => {
+//     req.session.destroy(err => {
+//         if(err){
+//             console.log(err);
+//         } else {
+//             res.send('Session is destroyed')
+//         }
+//     });
+// })
 
 app.use((req, res, next) => {
     const allowedOrigins = ["http://localhost:3000", "https://a5--stellular-malasada-11cc12.netlify.app"];
