@@ -11,7 +11,7 @@ import { config as dotenvConfig } from 'dotenv';
 
 dotenvConfig();
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING  || "mongodb://127.0.0.1:27017/tuiter"
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/tuiter"
 
 mongoose.connect(CONNECTION_STRING);
 
@@ -53,7 +53,8 @@ app.use(
 // })
 
 app.use((req, res, next) => {
-    const allowedOrigins = ["http://localhost:3000", "https://a5--stellular-malasada-11cc12.netlify.app"];
+    const allowedOrigins = ["http://localhost:3000", "https://a5--stellular-malasada-11cc12.netlify.app",
+        "https://a6--stellular-malasada-11cc12.netlify.app"];
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {
