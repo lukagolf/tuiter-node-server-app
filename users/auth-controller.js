@@ -11,6 +11,7 @@ const AuthController = (app) => {
         const newUser = await usersDao.createUser(req.body);
         currentUserVar = newUser;
         req.session["currentUser"] = newUser;
+        req.session.save();
         res.json(newUser);
     };
 
@@ -44,6 +45,7 @@ const AuthController = (app) => {
     };
 
     const logout = async (req, res) => {
+        currentUserVar = null;
         req.session.destroy();
         res.sendStatus(200);
     };
